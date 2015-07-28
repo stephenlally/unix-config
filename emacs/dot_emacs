@@ -1,0 +1,140 @@
+;; no GUI
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+
+; always show line numbers
+;(global-linum-mode -1)
+
+;; syntax highlighting on by default
+(global-font-lock-mode 1)
+
+(require 'thingatpt)
+
+;; (add-to-list 'load-path (expand-file-name "~/elisp"))
+
+;; blinking cursor = off
+(if (fboundp 'blink-cursor-mode) (blink-cursor-mode 0))
+
+;; turn of autobackup
+(setq make-backup-files nil)
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(line-move-visual nil)
+ '(indent-tabs-mode nil)
+ '(iswitchb-mode t)
+ '(perl-indent-level 2)
+ '(transient-mark-mode (quote (only . t))))
+
+(put 'downcase-region 'disabled nil)
+
+(global-set-key [f2] 'other-window)
+(global-set-key [f5] 'save-buffer)
+(global-set-key [f6] 'string-insert-rectangle)
+(global-set-key [f7] 'query-replace)
+
+(setq compilation-ask-about-save nil)
+(global-set-key [f8] 'compile)
+(global-set-key "\M-z" 'zap-up-to-char)
+
+(defun iwb ()
+  "indent whole buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max)))
+
+;; copy N line(s)
+(defun my-copy-line (arg)
+  "Copy lines (as many as prefix argument) in the kill ring"
+  (interactive "p")
+  (kill-ring-save (line-beginning-position)
+                  (line-beginning-position (+ 1 arg)))
+  (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
+
+
+
+;; keyboard shortcut
+(global-set-key "\C-c" 'my-copy-line)
+
+
+;; indent region after a yank
+(defadvice yank (after indent-region activate)
+  (if (member major-mode '(emacs-lisp-mode scheme-mode lisp-mode
+                                           c-mode c++-mode objc-mode
+                                           LaTeX-mode TeX-mode))
+      (indent-region (region-beginning) (region-end) nil)))
+
+;; no audible bell
+(setq visible-bell 1)
+
+(setq-default c-default-style "linux"
+              c-basic-offset 2
+                                                        tab-width 2
+                                                        indent-tabs-mode nil)
+
+(setq pulse-flag nil)
+
+(add-to-list 'auto-mode-alist '("\\.cgi\\'" . perl-mode))
+(add-to-list 'auto-mode-alist '("\\.xsd\\'" . xml-mode))
+(add-to-list 'auto-mode-alist '("\\.cs\\'" . java-mode))
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+
+;; delete when using emacs 22
+(defun zap-up-to-char (arg char)
+  "Kill up to, but not including ARGth occurrence of CHAR.
+Case is ignored if `case-fold-search' is non-nil in the current buffer.
+Goes backward if ARG is negative; error if CHAR not found.
+Ignores CHAR at point."
+  (interactive "p\ncZap up to char: ")
+  (let ((direction (if (>= arg 0) 1 -1)))
+    (kill-region (point)
+                 (progn
+                   (forward-char direction)
+                   (unwind-protect
+                       (search-forward (char-to-string char) nil nil arg)
+                     (backward-char direction))
+                   (point)))))
+
+;; cedet
+;; (load-file "~/shadow/svn/emacs/cedet-1.0pre7/common/cedet.el")
+;; (global-ede-mode 1)                      ; Enable the Project management system
+;; (semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion
+;; (global-srecode-minor-mode 1)            ; Enable template insertion menu
+;; 
+;; (defun my-c-mode-cedet-hook ()
+;; (local-set-key "\C-cd" 'semantic-ia-fast-jump)
+;; (local-set-key "\C-ch" 'eassist-switch-h-cpp)
+;; (local-set-key "\C-cm" 'eassist-list-methods)
+;; (local-set-key "\C-cg" 'semantic-symref))
+;; (add-hook 'c-mode-common-hook 'my-c-mode-cedet-hook)
+
+;; turn off pulse to screen
+(setq pulse-flag nil)
+
+;;  highlight symbols
+;; (require 'highlight-symbol)
+;; (global-set-key [(control f9)] 'highlight-symbol-at-point)
+
+(global-set-key [(control f9)] 'highlight-symbol-at-point)
+
+;; turn off auto highlighting of marked text
+(transient-mark-mode 0)
+
+
+;; autopair curly braces etc
+;; (require 'autopair)
+;; (autopair-global-mode) ;; enable autopair in all buffers
+
+(global-set-key [f12] 'multi-occur-in-all-open-buffers)
+(defun multi-occur-in-all-open-buffers ()
+  "Search for string in all open buffers..."
+  (interactive)
+  (setq toFind (read-from-minibuffer "To Find: " (thing-at-point 'word)))
+  (multi-occur-in-matching-buffers ".*" toFind))
+
+(load-theme 'deeper-blue t)
