@@ -1,4 +1,3 @@
-unix config
-======
+# Unix shell config
 
-shell and emacs config
+# to install: ./install
