@@ -1,0 +1,23 @@
+#!/bin/bash 
+
+# Absolute path to this script
+SCRIPT=`readlink -f $0`
+# Absolute path this script is in, thus /home/user/bin
+SCRIPTPATH=`dirname $SCRIPT`
+echo "source dir: $SCRIPTPATH"
+
+echo "installing Xresources"
+ln -s $SCRIPTPATH/x/Xresources $HOME/.Xresources
+xrdb $HOME/.Xresources
+
+echo "installing emacs config"
+ln -s $SCRIPTPATH/emacs/dot_emacs $HOME/.emacs
+
+echo "installing zsh config"
+ln -s $SCRIPTPATH/zsh/zshrc $HOME/.zshrc
+
+echo "installing aliases"
+ln -s $SCRIPTPATH/shell/aliases $HOME/.aliases
+
+echo "installing screen config"
+ln -s $SCRIPTPATH/screen/screenrc $HOME/.screenrc

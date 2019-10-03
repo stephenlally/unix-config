@@ -1,0 +1,31 @@
+! Tell Xterm that page up really means page up!  No shift required.
+*VT100.Translations:      #override <Key>Prior: scroll-back(1,page) \n\
+                          <Key>Next: scroll-forw(1,page) \n \
+                          Shift<Key>Up: scroll-back(1,line) \n \
+                          Shift<Key>Down: scroll-forw(1,line) \n
+XTerm*background: black
+XTerm*foreground: gray
+XTerm*highlightColor: red
+XTerm*highlightSelection: true
+XTerm*metaSendsEscape: true
+XTerm*toolBar: false
+XTerm*scrollBar: true
+XTerm*rightScrollBar: true
+XTerm*saveLines: 10000
+XTerm*font: 6x13
+! This doesnt seem to work on its own:
+XTerm*boldMode: false
+! Set bold font to normal font to in effect disable it
+XTerm*boldFont: 6x13
+
+emacs.font:             6x13
+emacs.geometry:         80x40+360+215
+emacs.borderColor:      VioletRed
+emacs.cursorColor:      SkyBlue
+emacs.pointerColor:     Yellow
+emacs.borderWidth:      1
+emacs.softButtons:      on
+emacs.foreground:       Gray
+emacs.background:       Black
+emacs.bitmapicon:       on
+emacs.iconName:         Emacs

@@ -1,0 +1,53 @@
+## ls --color doesn't work on SunOS
+OS=`uname`
+if [ "$OS" = "Linux" ];
+then
+        alias ls='ls -vb --color=always'
+fi
+
+## source
+alias zs='source ~/.zshrc'
+alias bs='source ~/.bashrc'
+
+## general
+alias grep='grep --color=auto'
+alias ..='cd ..'
+alias l='less -n'
+alias -g L='|less -n'
+alias -g G='|grep'
+alias -g X='|xargs grep'
+alias -g T='|tee'
+# the last edited file in the current dir, e.g. less N
+alias -g N='`ls --color=none -1t | head -1`'
+# alias pwdf='find $1 -type f | sed "s#^.#$(pwd)#"'
+alias ls='ls --color=auto'
+alias ll='ls -lrth'
+alias lll='ls -alrth'
+
+## emacs
+alias xe='xemacs'
+alias e='emacs'
+alias ec='emacsclient --no-wait'
+
+## kill
+alias k9='kill -9'
+alias k15='kill -15'
+
+## misc
+alias gi1='gmake OVERWRITE_TARGET_IN_INSTALL=1 install'
+
+alias remWindowsEndOfLine="perl -pi -e 's/\r/\n/g' "
+alias c+x='chmod +x'
+
+## perforce
+alias p4s='p4 sync ...'
+alias p4l='p4 login -a'
+alias p4e='p4 edit'
+alias p4b='p4 submit'
+
+## Ant
+alias ai='ant install'%  
+
+## Cygwin
+# open file specified in windows format in emacs under cygwin
+# ec_cyg () { emacsclient --no-wait "$(cygpath -u "$1")" }

@@ -1,0 +1,15 @@
+# remap escape button to ctrl-o
+escape ^Oo
+
+# ctrl-o <space-bar> brings up window list
+bind ' ' windowlist -b
+ 
+defscrollback 5000
+
+# bottom line of screen window
+caption always "%{= kc}%H (system load: %l)%-21=%{= .m}%D %d.%m.%Y %0c"
+
+# make terminal scrollback work, hardstatus = xterm title + other things 
+termcapinfo xterm 'ti@:te@:hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+
+hardstatus string '%{= kG}%{G}%H %{g}%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}%{B} %d/%m %{W}%c %{g}'

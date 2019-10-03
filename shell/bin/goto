@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ $# -eq 1 ]
+then
+    exec /usr/bin/xterm -title $1 -e ssh $1 &       
+fi

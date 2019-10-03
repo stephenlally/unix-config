@@ -1,0 +1,33 @@
+autoload -U compinit
+compinit
+
+export EDITOR="emacsclient"
+
+autoload -U colors && colors
+PS1="%{$fg[green]%}%n%{$reset_color%}@%{$fg[green]%}%m %{$fg[yellow]%}%~ %{$reset_color%}
+$ "
+
+# set the xterm title to "username@hostname: directory"
+case $TERM in
+    xterm*)
+        precmd () {print -Pn "\e]0;%n@%m: %~\a"}
+        ;;
+esac
+
+setopt NO_BEEP
+
+# History
+HISTSIZE=5000
+SAVEHIST=5000
+HISTFILE=~/.history
+
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_NO_STORE
+
+# ls with colors
+# eval `dircolors ~/.dircolorsrc`
+
+source ~/.aliases
