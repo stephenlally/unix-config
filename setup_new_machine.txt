@@ -1,0 +1,7 @@
+ssh-keygen -t rsa
+cat ~/.ssh/id_rsa.pub
+mkdir project
+git clone git@github.com:stephenlally/unix-config.git
+sudo apt install zsh
+cat /etc/shells
+chsh

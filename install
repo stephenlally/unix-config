@@ -2,13 +2,12 @@
 
 # Absolute path to this script
 SCRIPT=`readlink -f $0`
-# Absolute path this script is in, thus /home/user/bin
 SCRIPTPATH=`dirname $SCRIPT`
 echo "source dir: $SCRIPTPATH"
 
-echo "installing Xresources"
-ln -s $SCRIPTPATH/x/Xresources $HOME/.Xresources
-xrdb $HOME/.Xresources
+#echo "installing Xresources"
+#ln -s $SCRIPTPATH/x/Xresources $HOME/.Xresources
+#xrdb $HOME/.Xresources
 
 echo "installing emacs config"
 ln -s $SCRIPTPATH/emacs/dot_emacs $HOME/.emacs
